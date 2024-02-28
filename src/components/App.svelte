@@ -1,7 +1,8 @@
 <script>
-  // Write your JS here, or import other files
-  mapboxgl.accessToken = "pk.eyJ1IjoiY2gtbHVtIiwiYSI6ImNsc28yeHVhMDBiOTQya3BwejA5N2w5M24ifQ.goNJS9gKumvE34fkNDaW5g";
-	const map = new mapboxgl.Map({
+  import mapbox from 'mapbox-gl';
+  import 'mapbox-gl/dist/mapbox-gl.css';
+  mapbox.accessToken = "pk.eyJ1IjoiY2gtbHVtIiwiYSI6ImNsc28yeHVhMDBiOTQya3BwejA5N2w5M24ifQ.goNJS9gKumvE34fkNDaW5g";
+	const map = new mapbox.Map({
 		container: "map",
 		style: "mapbox://styles/mapbox/outdoors-v12", 
 		center: [-71.0942, 42.3601], 
@@ -9,10 +10,6 @@
 		minZoom: 12,
 		maxZoom: 15,
 	});
-
-  function project(d) {
-    return map.project(new mapboxgl.LngLat(+d.lon, +d.lat));
-  }
 </script>
 
 <main>
