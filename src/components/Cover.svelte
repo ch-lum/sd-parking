@@ -19,10 +19,11 @@
         z-index: 2;
         font-family: Georgia;
         text-align: center;
+        margin: 0;
     }
     
     h1 {
-        padding-top: 10%;
+        padding-top: 5%;
         font-size: 4em;
     }
 </style>

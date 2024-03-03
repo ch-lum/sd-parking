@@ -17,7 +17,7 @@
     {#if showCover}
         <Cover>
           <button on:click={toggleCover}>Explore Parking Meters</button>
-          <h2><br>Or scroll<br><br>↓</h2>
+          <h2><br>And scroll<br>↓</h2>
         </Cover>
     {/if}
     
