@@ -43,12 +43,12 @@
         const xScaleDiscrete = d3.scalePoint()
             // .domain(Array.from(new Set(minutes.map(d => d.area))))
             .domain(maxAreaByCategory.map(d => d.key))
-            .range([0 + margin, width * 0.6])
+            .range([0 + margin, width * 0.45])
             .padding(1);
 
         const xScaleLinear = d3.scaleLinear()
             .domain(d3.extent(minutes.map(d => d.count)))
-            .range([0 + margin, 0 + width * 0.4 - margin]);
+            .range([0 + margin, 0 + width * 0.75 - margin]);
 
         const yScale = d3.scaleTime()
             .domain(d3.extent(minutes.map(d => d3.timeParse("%Y-%m-%d %H:%M:%S")(d.time))))
@@ -98,27 +98,14 @@
             svg.append("path")
                 .datum(area)
                 .attr("fill", "none")
-                .attr("stroke", colorScale(key))
-                .attr("stroke-width", 1.5)
+                .attr("stroke", "black")
+                .attr("stroke-width", 1)
                 .attr("d", line)
                 .attr("fill", colorScale(key))
-                .attr("fill-opacity", 1)
+                .attr("fill-opacity", 0.6)
                 .attr("d", colorArea);
         });
 
-        // maxAreaByCategory.forEach(({ category }) => {
-        //     const area = areas.get(category);
-
-        //     svg.append("path")
-        //         .datum(area)
-        //         .attr("fill", "none")
-        //         .attr("stroke", colorScale(category))
-        //         .attr("stroke-width", 1.5)
-        //         .attr("d", line)
-        //         .attr("fill", colorScale(category))
-        //         .attr("fill-opacity", 1)
-        //         .attr("d", colorArea);
-        // });
     });
 </script>
 
