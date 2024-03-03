@@ -23,6 +23,16 @@
       .then((data) => {
         console.log(data);
         map.on("load", () => {
+          const uniquePoles = new Set();
+
+          data.features = data.features.filter((feature) => {
+            if (uniquePoles.has(feature.properties.pole)) {
+              return false;
+            }
+            uniquePoles.add(feature.properties.pole);
+            return true;
+          });
+
           map.addSource("meters", {
             type: "geojson",
             data: data,
