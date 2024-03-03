@@ -1,0 +1,70 @@
+<script>
+    import { onMount } from "svelte";
+    import * as d3 from "d3";
+
+    let minutes = [];
+
+    onMount(async () => {
+        const height = 2400;
+        const width = 800;
+        const margin = 100;
+
+        const res = await fetch('by_minute.csv'); 
+        const csv = await res.text();
+        minutes = d3.csvParse(csv, d3.autoType)
+
+
+        const svg = d3.select("#timeline")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .style("background-color", "lightgrey");
+
+        const xScaleDiscrete = d3.scalePoint()
+            .domain(Array.from(new Set(minutes.map(d => d.area))))
+            .range([0 + margin, width / 2 - margin]);
+
+        const xScaleLinear = d3.scaleLinear()
+            .domain(d3.extent(minutes.map(d => d.count)))
+            .range([0 + margin, width - margin * 2]);
+
+        const yScale = d3.scaleTime()
+            .domain(d3.extent(minutes.map(d => d3.timeParse("%Y-%m-%d %H:%M:%S")(d.time))))
+            .range([0 + margin, height - margin]);
+
+        const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+
+        const xAxis = d3.axisBottom(xScaleDiscrete);
+        const yAxis = d3.axisLeft(yScale).tickFormat(d3.timeFormat("%H:%M"));
+
+        svg.append("g")
+            .attr("transform", `translate(0, ${height - margin})`)
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-65)");
+
+        svg.append("g")
+            .attr("transform", `translate(${margin}, 0)`)
+            .call(yAxis);
+
+        const line = d3.line()
+            .x(d => xScaleDiscrete(d.area) + xScaleLinear(d.count) - margin)
+            .y(d => yScale(d3.timeParse("%Y-%m-%d %H:%M:%S")(d.time)));
+        
+        const areas = d3.group(minutes, d => d.area);
+
+        areas.forEach((area, key) => {
+            svg.append("path")
+                .datum(area)
+                .attr("fill", "none")
+                .attr("stroke", colorScale(key))
+                .attr("stroke-width", 1.5)
+                .attr("d", line);
+        });
+    });
+</script>
+
+<div id="timeline"></div>
