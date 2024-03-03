@@ -4,7 +4,6 @@
     import Map from "./Map.svelte";
 
     let minutes = [];
-    let svgWidth;
     let maxAreaByCategory;
 
     onMount(async () => {
@@ -17,9 +16,22 @@
         minutes = d3.csvParse(csv, d3.autoType)
 
         maxAreaByCategory = Array.from(d3.group(minutes, d => d.area), ([key, values]) => ({key, values: d3.max(values, d => d.count)}))
-
         maxAreaByCategory.sort((a, b) => d3.ascending(a.values, b.values));
         console.log(maxAreaByCategory);
+
+        const maxAreaMap = new window.Map(maxAreaByCategory.map(d => [d.key, d.values]));
+        minutes.sort((a, b) => {
+            // Primary sort by the "area" column
+            const areaDiff = d3.descending(maxAreaMap.get(a.area), maxAreaMap.get(b.area));
+            if (areaDiff !== 0) return areaDiff;
+
+            // Secondary sort by the "minute" column
+            return d3.ascending(a.minute, b.minute);
+        });
+
+
+        console.log(minutes);
+
 
         const svg = d3.select("#timeline")
             .append("svg")
@@ -31,7 +43,7 @@
         const xScaleDiscrete = d3.scalePoint()
             // .domain(Array.from(new Set(minutes.map(d => d.area))))
             .domain(maxAreaByCategory.map(d => d.key))
-            .range([0 + margin, width * 0.8])
+            .range([0 + margin, width * 0.6])
             .padding(1);
 
         const xScaleLinear = d3.scaleLinear()
@@ -90,9 +102,23 @@
                 .attr("stroke-width", 1.5)
                 .attr("d", line)
                 .attr("fill", colorScale(key))
-                .attr("fill-opacity", 0.2)
+                .attr("fill-opacity", 1)
                 .attr("d", colorArea);
         });
+
+        // maxAreaByCategory.forEach(({ category }) => {
+        //     const area = areas.get(category);
+
+        //     svg.append("path")
+        //         .datum(area)
+        //         .attr("fill", "none")
+        //         .attr("stroke", colorScale(category))
+        //         .attr("stroke-width", 1.5)
+        //         .attr("d", line)
+        //         .attr("fill", colorScale(category))
+        //         .attr("fill-opacity", 1)
+        //         .attr("d", colorArea);
+        // });
     });
 </script>
 
