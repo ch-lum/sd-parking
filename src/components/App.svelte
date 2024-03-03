@@ -14,7 +14,7 @@
   <Map />
   {#if showCover}
       <Cover>
-        <button on:click={toggleCover}>Explore</button>
+        <button on:click={toggleCover}>Explore Parking Meters</button>
         <p><br>Or scroll<br><br>↓</p>
       </Cover>
   {/if}
