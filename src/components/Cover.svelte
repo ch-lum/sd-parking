@@ -3,14 +3,14 @@
 </script>
 
 <div in:fade={{ duration: 500 }} out:fade={{ duration: 500 }}>
-    <h1>Title</h1>
+    <h1>When People Park:<br>San Diego</h1>
     <slot></slot>
 </div>
 
 <style>
     div {
         position: absolute;
-        background-color: rgba(177, 6, 6, 0.8);
+        background-color: rgba(255,255,255, 0.5);
         top: 0;
         bottom: 0;
         width: 100%;
@@ -18,5 +18,11 @@
         border: 2px solid red;
         z-index: 2;
         font-family: Georgia;
+        text-align: center;
+    }
+    
+    h1 {
+        padding-top: 10%;
+        font-size: 4em;
     }
 </style>
