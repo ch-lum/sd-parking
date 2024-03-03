@@ -13,7 +13,10 @@
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "svelte": "^4.2.7",
+<<<<<<< HEAD
     "svelte-transitions": "^1.2.0",
+=======
+>>>>>>> 047d8cc65effe73ce7cb7db37ba76791301cbc70
     "vite": "^5.0.3"
   },
   "type": "module",
