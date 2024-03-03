@@ -5,6 +5,7 @@
 
     let minutes = [];
     let svgWidth;
+    let maxAreaByCategory;
 
     onMount(async () => {
         const height = 2400;
@@ -15,6 +16,11 @@
         const csv = await res.text();
         minutes = d3.csvParse(csv, d3.autoType)
 
+        maxAreaByCategory = Array.from(d3.group(minutes, d => d.area), ([key, values]) => ({key, values: d3.max(values, d => d.count)}))
+
+        maxAreaByCategory.sort((a, b) => d3.ascending(a.values, b.values));
+        console.log(maxAreaByCategory);
+
         const svg = d3.select("#timeline")
             .append("svg")
             .attr("width", width)
@@ -23,13 +29,14 @@
         
 
         const xScaleDiscrete = d3.scalePoint()
-            .domain(Array.from(new Set(minutes.map(d => d.area))))
-            .range([0 + margin, width * 0.6])
+            // .domain(Array.from(new Set(minutes.map(d => d.area))))
+            .domain(maxAreaByCategory.map(d => d.key))
+            .range([0 + margin, width * 0.8])
             .padding(1);
 
         const xScaleLinear = d3.scaleLinear()
             .domain(d3.extent(minutes.map(d => d.count)))
-            .range([0 + margin, 0 + width * 0.8 - margin]);
+            .range([0 + margin, 0 + width * 0.4 - margin]);
 
         const yScale = d3.scaleTime()
             .domain(d3.extent(minutes.map(d => d3.timeParse("%Y-%m-%d %H:%M:%S")(d.time))))
@@ -67,6 +74,11 @@
         const line = d3.line()
             .x(d => xScaleDiscrete(d.area) + xScaleLinear(d.count) - margin)
             .y(d => yScale(d3.timeParse("%Y-%m-%d %H:%M:%S")(d.time)));
+
+        const colorArea = d3.area()
+            .x(d => xScaleDiscrete(d.area) + xScaleLinear(d.count) - margin)
+            .y0(height - margin)
+            .y1(d => yScale(d3.timeParse("%Y-%m-%d %H:%M:%S")(d.time)));
         
         const areas = d3.group(minutes, d => d.area);
 
@@ -76,7 +88,10 @@
                 .attr("fill", "none")
                 .attr("stroke", colorScale(key))
                 .attr("stroke-width", 1.5)
-                .attr("d", line);
+                .attr("d", line)
+                .attr("fill", colorScale(key))
+                .attr("fill-opacity", 0.2)
+                .attr("d", colorArea);
         });
     });
 </script>
