@@ -1,13 +1,14 @@
 <script>
     import { onMount } from "svelte";
     import * as d3 from "d3";
-    import Map from "./Map.svelte";
+    import TLTooltip from "./TLTooltip.svelte";
 
     let minutes = [];
     let maxAreaByCategory;
+    let tooltipText = "";
 
     onMount(async () => {
-        const height = 2400;
+        const height = 3000;
         const width = 1000;
         const margin = 120;
 
@@ -113,6 +114,7 @@
 </script>
 
 <div id="timeline"></div>
+<TLTooltip {tooltipText} />
 
 <style>
     #timeline {
