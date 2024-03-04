@@ -52,10 +52,15 @@
             .range([0 + margin, height - margin]);
 
         const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+        
+        const timeRange = d3.extent(minutes.map(d => d3.timeParse("%Y-%m-%d %H:%M:%S")(d.time)));
+        const numHours = (timeRange[1] - timeRange[0]) / 1000 / 60 / 60;
 
         const xAxisTop = d3.axisTop(xScaleDiscrete);
         const xAxisBottom = d3.axisBottom(xScaleDiscrete);
-        const yAxis = d3.axisLeft(yScale).tickFormat(d3.timeFormat("%H:%M"));
+        const yAxis = d3.axisLeft(yScale)
+            .ticks(numHours, "%H:%M")
+            .tickFormat(d3.timeFormat("%H:%M"));
 
         svg.append("g")
             .attr("transform", `translate(0, ${margin})`)
@@ -88,7 +93,8 @@
 
         const line = d3.line()
             .x(d => xScaleDiscrete(d.area) + xScaleLinear(d.count) - margin)
-            .y(d => yScale(d3.timeParse("%Y-%m-%d %H:%M:%S")(d.time)));
+            .y(d => yScale(d3.timeParse("%Y-%m-%d %H:%M:%S")(d.time)))
+            .curve(d3.curveStepAfter);
 
         const areas = d3.group(minutes, d => d.area);
 
