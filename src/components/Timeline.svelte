@@ -9,7 +9,7 @@
     onMount(async () => {
         const height = 2400;
         const width = 1000;
-        const margin = 100;
+        const margin = 120;
 
         const res = await fetch('by_minute.csv'); 
         const csv = await res.text();
@@ -17,7 +17,7 @@
 
         maxAreaByCategory = Array.from(d3.group(minutes, d => d.area), ([key, values]) => ({key, values: d3.max(values, d => d.count)}))
         maxAreaByCategory.sort((a, b) => d3.ascending(a.values, b.values));
-        console.log(maxAreaByCategory);
+        // console.log(maxAreaByCategory);
 
         const maxAreaMap = new window.Map(maxAreaByCategory.map(d => [d.key, d.values]));
         minutes.sort((a, b) => {
@@ -29,9 +29,7 @@
             return d3.ascending(a.minute, b.minute);
         });
 
-
-        console.log(minutes);
-
+        // console.log(minutes);
 
         const svg = d3.select("#timeline")
             .append("svg")
@@ -41,7 +39,6 @@
         
 
         const xScaleDiscrete = d3.scalePoint()
-            // .domain(Array.from(new Set(minutes.map(d => d.area))))
             .domain(maxAreaByCategory.map(d => d.key))
             .range([0 + margin, width * 0.45])
             .padding(1);
@@ -67,7 +64,10 @@
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
-            .attr("transform", "rotate(65)");
+            .attr("transform", "rotate(65)")
+            .style("fill", function(d) { return colorScale(d); })
+            .style("font-weight", "bold")
+            .style("text-transform", "uppercase");
 
         svg.append("g")
             .attr("transform", `translate(0, ${height - margin})`)
@@ -76,7 +76,10 @@
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
-            .attr("transform", "rotate(-65)");
+            .attr("transform", "rotate(-65)")
+            .style("fill", function(d) { return colorScale(d); })
+            .style("font-weight", "bold")
+            .style("text-transform", "uppercase");
 
         
         svg.append("g")
@@ -87,11 +90,6 @@
             .x(d => xScaleDiscrete(d.area) + xScaleLinear(d.count) - margin)
             .y(d => yScale(d3.timeParse("%Y-%m-%d %H:%M:%S")(d.time)));
 
-        const colorArea = d3.area()
-            .x(d => xScaleDiscrete(d.area) + xScaleLinear(d.count) - margin)
-            .y0(height - margin)
-            .y1(d => yScale(d3.timeParse("%Y-%m-%d %H:%M:%S")(d.time)));
-        
         const areas = d3.group(minutes, d => d.area);
 
         areas.forEach((area, key) => {
@@ -103,7 +101,6 @@
                 .attr("d", line)
                 .attr("fill", colorScale(key))
                 .attr("fill-opacity", 0.6)
-                .attr("d", colorArea);
         });
 
     });
