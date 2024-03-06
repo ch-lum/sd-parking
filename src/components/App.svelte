@@ -91,7 +91,7 @@
   .first_text {
     position: absolute;
     top: 100%;
-    width: 100% - 400px;
+    width: 100%;
     border: 2px solid blue;
     text-align: left;
     /* padding-left: 200px;
