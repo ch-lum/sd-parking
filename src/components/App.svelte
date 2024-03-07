@@ -3,6 +3,8 @@
   import Map from './Map.svelte';
   import Cover from './Cover.svelte';
   import Timeline from './Timeline.svelte';
+  import Machine from './Machine.svelte';
+  import Radial from './Radial.svelte';
 
   let showCover = true;
 
@@ -28,6 +30,11 @@
     <p>San diego is well known for being a car-centric city. Blah blah blah blah. Here will go some introduction and discussion about cars</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     <Timeline />
+  </div>
+
+  <div class="machine">
+    <Machine />
+    <Radial />
   </div>
 </main>
 
@@ -93,6 +100,17 @@
     top: 100%;
     width: 100%;
     border: 2px solid blue;
+    text-align: left;
+    /* padding-left: 200px;
+    padding-right: 200px; */
+  }
+
+  .machine {
+    position: absolute;
+    top: 100%;
+    transform: translateY(3400px);
+    width: 100%;
+    border: 2px solid red;
     text-align: left;
     /* padding-left: 200px;
     padding-right: 200px; */
