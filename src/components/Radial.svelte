@@ -8,6 +8,7 @@
 
     export let subset = [];
     export let params = {};
+    // Divide by padres and day of week for average
     
     let svg;
     let data;
@@ -16,6 +17,8 @@
     const margin = 30;
     const innerRadius = width/8;
     const outerRadius = width/2 - margin;
+    const maxAvg = 1600;
+    const maxSum = 5000;
 
     onMount(() => {
         const sumByTime = rollup(subset, v => d3.sum(v, leaf => leaf.counts), d => d.time);
@@ -29,24 +32,55 @@
             d.time = today;
         });
 
+        if (params.scale === "linear_avg") {
+            subset.forEach(d => d.counts = d.counts / (params.selectedDay.length * params.selectedPadres.length))
+        }
+
         const xScale = d3.scaleTime()
             .domain([new Date().setHours(0, 0, 0, 0), new Date().setHours(23, 59, 59, 999)])
             .range([-1 * Math.PI, Math.PI]);
         
-        const yScale = d3.scaleRadial()
+        const yScaleNormal = d3.scaleRadial()
             .domain([0, d3.max(subset, d => d.counts)])
             .range([innerRadius, outerRadius]);
+
+        const yScaleLinearAvg = d3.scaleRadial()
+            .domain([0, maxAvg])
+            .range([innerRadius, outerRadius]);
+
+        const yScaleLinearSum = d3.scaleRadial()
+            .domain([0, maxSum])
+            .range([innerRadius, outerRadius]);
+        
+        // Probably won't work
+        const yScaleLog = d3.scaleLinear()
+            .domain([Math.log(1), Math.log(200)]) // log scale domain
+            .range([innerRadius, outerRadius])
+            .clamp(true);
+
+        const logScale = num => yScaleLog(Math.log(num));
         
         const scaleScale = {
             "normal": "white",
-            "linear": "lightblue",
+            "linear_avg": "lightblue",
+            "linear_sum": "lightgreen",
             "log": "gold"
         }
 
         const line = d3.lineRadial()
             .curve(d3.curveLinearClosed)
             .angle(d => xScale(d.time))
-            .radius(d => yScale(d.counts));
+        
+        if (params.scale === "normal")
+            line.radius(d => yScaleNormal(d.counts));
+        else if (params.scale === "linear_avg")
+            line.radius(d => yScaleLinearAvg(d.counts));
+        else if (params.scale === "linear_sum")
+            line.radius(d => yScaleLinearSum(d.counts));
+        else if (params.scale === "log")
+            line.radius(d => logScale(d.counts));
+        
+        // IF I CAN EVER GET THEM SEPARATED, CHANGE HEIGHT
         
         const svg = d3.select("#radial")
             .append("svg")
@@ -74,15 +108,20 @@
             .attr("fill-opacity", 0)
             .attr("stroke", "lightgray")
 
-        for (let label = 0; label <= 1; label += 0.5) {
-            const adjust = (label === 0) ? 10 : -6;
+        // Set labels
+        for (let tick = 0; tick <= 1; tick += 0.5) {
+            const adjust = (tick === 0) ? 10 : -6;
+
+            const max_label = (params.scale === "normal") ? 1 : 
+                (params.scale === "linear_avg") ? maxAvg : 
+                (params.scale === "linear_sum") ? maxSum : 1;
 
             svg.append("text")
                 .attr("x", Math.sin(0))
-                .attr("y", Math.cos(0) * (innerRadius + (outerRadius - innerRadius) * label + adjust))
+                .attr("y", Math.cos(0) * (innerRadius + (outerRadius - innerRadius) * tick + adjust))
                 .style("text-anchor", "middle")
                 .style("dominant-baseline", "middle")
-                .text(label)
+                .text(max_label * tick)
                 .style("font-color", "lightgray")
                 .attr("background-color", "white");
         }
