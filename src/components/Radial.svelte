@@ -7,6 +7,7 @@
     import * as d3 from "d3";
 
     export let subset = [];
+    export let params = {};
     
     let svg;
     let data;
@@ -35,6 +36,12 @@
         const yScale = d3.scaleRadial()
             .domain([0, d3.max(subset, d => d.counts)])
             .range([innerRadius, outerRadius]);
+        
+        const scaleScale = {
+            "normal": "white",
+            "linear": "lightblue",
+            "log": "gold"
+        }
 
         const line = d3.lineRadial()
             .curve(d3.curveLinearClosed)
@@ -112,12 +119,13 @@
             .attr("fill-opacity", 0.2)
             .attr("d", line(subset));
 
+        // Inner circle
         svg.append("circle")
             .attr("cx", 0)
             .attr("cy", 0)
             .attr("r", innerRadius - 1)
             .attr("stroke", "lightgray")
-            .attr("fill", "white");
+            .attr("fill", scaleScale[params.scale]);
     
         svg.append("text")
             .attr("x", 0)
