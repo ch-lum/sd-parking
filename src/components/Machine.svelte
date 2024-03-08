@@ -126,7 +126,8 @@
     <br>
     <select class="maker" bind:value={scale}>
         <option value="normal">Normalized</option>
-        <option value="linear">Linear</option>
+        <option value="linear_avg">Linear (avg)</option>
+        <option value="linear_sum">Linear (sum)</option>
         <option value="log">Log</option>
     </select>
 
@@ -147,7 +148,7 @@
         padding: 0px;
         font-family: Helvetica;
         font-size: 0.9em;
-        height: 640px
+        height: 940px
     }
 
     h2 {
