@@ -9,6 +9,7 @@
     let selectedDay = [0, 1, 2, 3, 4, 5, 6];
     let selectedArea = ["East Village", "Hillcrest", "Marina", "Little Italy", "Bankers Hill", "Gaslamp", "Cortez Hill", "Core", "Columbia", "Five Points", "Mission Hills", "University Heights", "North Park", "Cortez", "Talmadge", "College", "Barrio Logan", "Golden Hill", "Point Loma", "Midtown"];
     let selectedPadres = ["True", "False"];
+    let scale = "normal";
 
     // $: makeable = $selectedDay.length > 0 && $selectedArea.length > 0 && $selectedPadres.length > 0;
     $: makeable = selectedDay.length > 0 && selectedArea.length > 0 && selectedPadres.length > 0;
@@ -28,6 +29,12 @@
 
         const newRadial = {
             subset: subset,
+            params: {
+                selectedDay: selectedDay,
+                selectedArea: selectedArea,
+                selectedPadres: selectedPadres,
+                scale: scale
+            },
             key: rad_key
         }
 
@@ -55,11 +62,11 @@
             <br>
 
             <button class="chooser" on:click={() => {
-                selectedDay = [];
-            }}>Clear</button>
-            <button class="chooser" on:click={() => {
                 selectedDay = [0, 1, 2, 3, 4, 5, 6];
             }}>Select All</button>
+            <button class="chooser" on:click={() => {
+                selectedDay = [];
+            }}>Clear</button>
         </div>
 
         <div class="area">
@@ -90,13 +97,13 @@
             </div>
             <br>
             <button class="chooser" on:click={() => {
-                selectedArea = []
-            }}>Clear</button>
-
-            <button class="chooser" on:click={() => {
                 selectedArea = ["East Village", "Hillcrest", "Marina", "Little Italy", "Bankers Hill", "Gaslamp", "Cortez Hill", "Core", "Columbia", "Five Points", "Mission Hills", "University Heights", "North Park", "Cortez", "Talmadge", "College", "Barrio Logan", "Golden Hill", "Point Loma", "Midtown"];
                 console.log(selectedArea)
             }}>Select All</button>
+            <button class="chooser" on:click={() => {
+                selectedArea = []
+            }}>Clear</button>
+
         </div>
 
         <div class="padres">
@@ -107,24 +114,30 @@
             </label>
             <br>
             <button class="chooser" on:click={() => {
+                selectedPadres = ["True", "False"];
+            }}>Select All</button>
+            <button class="chooser" on:click={() => {
                 selectedPadres = []
             }}>Clear</button>
 
-            <button class="chooser" on:click={() => {
-                selectedPadres = ["True", "False"];
-            }}>Select All</button>
         </div>
     </div>
 
     <br>
-    <button class="maker {!makeable ? 'disabled': ''}" on:click={makeRadial} disabled={!makeable}>Make Radial</button>
-    <button class="maker {radials.length <= 0 ? 'disabled': ''}" on:click={() => {
+    <select class="maker" bind:value={scale}>
+        <option value="normal">Normalized</option>
+        <option value="linear">Linear</option>
+        <option value="log">Log</option>
+    </select>
+
+    <button class="maker {!makeable ? 'disabled': ''} green" on:click={makeRadial} disabled={!makeable}>Make Chart</button>
+    <button class="maker {radials.length <= 0 ? 'disabled': ''} red" on:click={() => {
         radials = [];
     }} disabled={radials.length <= 0}>Erase All</button>
 
     {#each radials as radial (radial.key)}
         <div class="draggable" use:draggable aria-grabbed="true" style="border: 2px solid red">
-            <Radial subset={radial.subset}/>
+            <Radial subset={radial.subset} params={radial.params}/>
         </div>
     {/each}
 </div>
@@ -194,5 +207,13 @@
         padding: 10px;
         margin: 0px 10px;
         z-index: 0;
+    }
+
+    .green {
+        background-color: lightgreen;
+    }
+
+    .red {
+        background-color: lightcoral;
     }
 </style>
