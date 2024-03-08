@@ -2,11 +2,11 @@
     console.log("RADIAL")
     import { onMount, afterUpdate } from "svelte";
     import { rollup } from "d3-array";
+    import { draggable } from '@neodrag/svelte'
     // import { selectedDay, selectedArea, selectedPadres } from "./Machine.svelte";
     import * as d3 from "d3";
 
     export let subset = [];
-    console.log(subset);
     
     let svg;
     let data;
@@ -19,7 +19,6 @@
     onMount(() => {
         const sumByTime = rollup(subset, v => d3.sum(v, leaf => leaf.counts), d => d.time);
         subset = Array.from(sumByTime, ([time, counts]) => ({time, counts}))
-        console.log(subset);
 
         const parseTime = d3.timeParse("%H:%M:%S");
         subset.forEach(d => {
@@ -69,7 +68,7 @@
             .attr("stroke", "lightgray")
 
         for (let label = 0; label <= 1; label += 0.5) {
-            const adjust = (label === 0) ? 10 : -4;
+            const adjust = (label === 0) ? 10 : -6;
 
             svg.append("text")
                 .attr("x", Math.sin(0))
@@ -127,7 +126,14 @@
             .attr("dominant-baseline", "middle")
             .attr("font-size", "12px")
             .text("00:00");
+
     });
 </script>
 
 <div id="radial"></div>
+
+<style>
+    #radial {
+        /* position: absolute; */
+    }
+</style>
