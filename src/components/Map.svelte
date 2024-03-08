@@ -5,6 +5,7 @@
   import * as d3 from "d3";
 
   let intervalId;
+  const colors = ['#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#a9a9a9', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080']
 
   onMount(() => {
     mapbox.accessToken = "pk.eyJ1IjoiY2gtbHVtIiwiYSI6ImNsc28yeHVhMDBiOTQya3BwejA5N2w5M24ifQ.goNJS9gKumvE34fkNDaW5g";
@@ -42,8 +43,32 @@
             type: "circle",
             source: "meters",
             paint: {
-              "circle-color": "#0cf0af",
-              "circle-stroke-color": "#0c67f0",
+              "circle-color": [
+                "match",
+                ["get", "area"],
+                "Bankers Hill", colors[0],
+                "Barrio Logan", colors[1],
+                "College", colors[2],
+                "Columbia", colors[3],
+                "Core", colors[4],
+                "Cortez", colors[5],
+                "Cortez Hill", colors[6],
+                "East Village", colors[7],
+                "Fize Points", colors[8],
+                "Gaslamp", colors[9],
+                "Golden Hill", colors[10],
+                "Hillcrest", colors[11],
+                "Little Italy", colors[12],
+                "Marina", colors[13],
+                "Midtown", colors[14],
+                "Mission Hills", colors[15],
+                "North Park", colors[16],
+                "Point Loma", colors[17],
+                "Talmadge", colors[18],
+                "University Heights", colors[19],
+                "#0c67f0"
+              ],
+              "circle-stroke-color": "darkslategray",
               "circle-stroke-width": 0.1,
               "circle-opacity": 0.3,
             },

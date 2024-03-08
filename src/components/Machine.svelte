@@ -40,81 +40,87 @@
 </script>
 
 <div id="machine">
-    <div class="day_of_week">
-        <h2>Day of week</h2>
-        <label>
-            <input type="checkbox" bind:group={selectedDay} value={0}> Monday<br>
-            <input type="checkbox" bind:group={selectedDay} value={1}> Tuesday<br>
-            <input type="checkbox" bind:group={selectedDay} value={2}> Wednesday<br>
-            <input type="checkbox" bind:group={selectedDay} value={3}> Thursday<br>
-            <input type="checkbox" bind:group={selectedDay} value={4}> Friday<br>
-            <input type="checkbox" bind:group={selectedDay} value={5}> Saturday<br>
-            <input type="checkbox" bind:group={selectedDay} value={6}> Sunday<br>
-        </label>
-        <br>
-
-        <button class="chooser" on:click={() => {
-            selectedDay = [];
-        }}>Reset Day</button>
-        <button class="chooser" on:click={() => {
-            selectedDay = [0, 1, 2, 3, 4, 5, 6];
-        }}>Select All Days</button>
-    </div>
-
-    <div class="area">
-        <h2>SD Neighborhood</h2>
-        <div class="area-text">
+    <div class="select">
+        <div class="day_of_week">
+            <h2>Day of week</h2>
             <label>
-                <input type="checkbox" bind:group={selectedArea} value="East Village"> East Village<br>
-                <input type="checkbox" bind:group={selectedArea} value="Hillcrest"> Hillcrest<br>
-                <input type="checkbox" bind:group={selectedArea} value="Marina"> Marina<br>
-                <input type="checkbox" bind:group={selectedArea} value="Little Italy"> Little Italy<br>
-                <input type="checkbox" bind:group={selectedArea} value="Bankers Hill"> Bankers Hill<br>
-                <input type="checkbox" bind:group={selectedArea} value="Gaslamp"> Gaslamp<br>
-                <input type="checkbox" bind:group={selectedArea} value="Cortez Hill"> Cortez Hill<br>
-                <input type="checkbox" bind:group={selectedArea} value="Core"> Core<br>
-                <input type="checkbox" bind:group={selectedArea} value="Columbia"> Columbia<br>
-                <input type="checkbox" bind:group={selectedArea} value="Five Points"> Five Points<br>
-                <input type="checkbox" bind:group={selectedArea} value="Mission Hills"> Mission Hills<br>
-                <input type="checkbox" bind:group={selectedArea} value="University Heights"> University Heights<br>
-                <input type="checkbox" bind:group={selectedArea} value="North Park"> North Park<br>
-                <input type="checkbox" bind:group={selectedArea} value="Cortez"> Cortez<br>
-                <input type="checkbox" bind:group={selectedArea} value="Talmadge"> Talmadge<br>
-                <input type="checkbox" bind:group={selectedArea} value="College"> College<br>
-                <input type="checkbox" bind:group={selectedArea} value="Barrio Logan"> Barrio Logan<br>
-                <input type="checkbox" bind:group={selectedArea} value="Golden Hill"> Golden Hill<br>
-                <input type="checkbox" bind:group={selectedArea} value="Point Loma"> Point Loma<br>
-                <input type="checkbox" bind:group={selectedArea} value="Midtown"> Midtown <br>
+                <input type="checkbox" bind:group={selectedDay} value={0}> Monday<br>
+                <input type="checkbox" bind:group={selectedDay} value={1}> Tuesday<br>
+                <input type="checkbox" bind:group={selectedDay} value={2}> Wednesday<br>
+                <input type="checkbox" bind:group={selectedDay} value={3}> Thursday<br>
+                <input type="checkbox" bind:group={selectedDay} value={4}> Friday<br>
+                <input type="checkbox" bind:group={selectedDay} value={5}> Saturday<br>
+                <input type="checkbox" bind:group={selectedDay} value={6}> Sunday<br>
             </label>
+            <br>
+
+            <button class="chooser" on:click={() => {
+                selectedDay = [];
+            }}>Clear</button>
+            <button class="chooser" on:click={() => {
+                selectedDay = [0, 1, 2, 3, 4, 5, 6];
+            }}>Select All</button>
         </div>
-        <br>
-        <button class="chooser" on:click={() => {
-            selectedArea = []
-        }}>Reset Area</button>
 
-        <button class="chooser" on:click={() => {
-            selectedArea = ["East Village", "Hillcrest", "Marina", "Little Italy", "Bankers Hill", "Gaslamp", "Cortez Hill", "Core", "Columbia", "Five Points", "Mission Hills", "University Heights", "North Park", "Cortez", "Talmadge", "College", "Barrio Logan", "Golden Hill", "Point Loma", "Midtown"];
-            console.log(selectedArea)
-        }}>Select All Areas</button>
+        <div class="area">
+            <h2>SD Neighborhood</h2>
+            <div class="area-text">
+                <label>
+                    <input type="checkbox" bind:group={selectedArea} value="Bankers Hill"> Bankers Hill<br>
+                    <input type="checkbox" bind:group={selectedArea} value="Barrio Logan"> Barrio Logan<br>
+                    <input type="checkbox" bind:group={selectedArea} value="College"> College<br>
+                    <input type="checkbox" bind:group={selectedArea} value="Columbia"> Columbia<br>
+                    <input type="checkbox" bind:group={selectedArea} value="Core"> Core<br>
+                    <input type="checkbox" bind:group={selectedArea} value="Cortez"> Cortez<br>
+                    <input type="checkbox" bind:group={selectedArea} value="Cortez Hill"> Cortez Hill<br>
+                    <input type="checkbox" bind:group={selectedArea} value="East Village"> East Village<br>
+                    <input type="checkbox" bind:group={selectedArea} value="Five Points"> Five Points<br>
+                    <input type="checkbox" bind:group={selectedArea} value="Gaslamp"> Gaslamp<br>
+                    <input type="checkbox" bind:group={selectedArea} value="Golden Hill"> Golden Hill<br>
+                    <input type="checkbox" bind:group={selectedArea} value="Hillcrest"> Hillcrest<br>
+                    <input type="checkbox" bind:group={selectedArea} value="Little Italy"> Little Italy<br>
+                    <input type="checkbox" bind:group={selectedArea} value="Marina"> Marina<br>
+                    <input type="checkbox" bind:group={selectedArea} value="Midtown"> Midtown <br>
+                    <input type="checkbox" bind:group={selectedArea} value="Mission Hills"> Mission Hills<br>
+                    <input type="checkbox" bind:group={selectedArea} value="North Park"> North Park<br>
+                    <input type="checkbox" bind:group={selectedArea} value="Point Loma"> Point Loma<br>
+                    <input type="checkbox" bind:group={selectedArea} value="Talmadge"> Talmadge<br>
+                    <input type="checkbox" bind:group={selectedArea} value="University Heights"> University Heights<br>
+                </label>
+            </div>
+            <br>
+            <button class="chooser" on:click={() => {
+                selectedArea = []
+            }}>Clear</button>
+
+            <button class="chooser" on:click={() => {
+                selectedArea = ["East Village", "Hillcrest", "Marina", "Little Italy", "Bankers Hill", "Gaslamp", "Cortez Hill", "Core", "Columbia", "Five Points", "Mission Hills", "University Heights", "North Park", "Cortez", "Talmadge", "College", "Barrio Logan", "Golden Hill", "Point Loma", "Midtown"];
+                console.log(selectedArea)
+            }}>Select All</button>
+        </div>
+
+        <div class="padres">
+            <h2>Padres play today?</h2>
+            <label>
+                <input type="checkbox" bind:group={selectedPadres} value={"True"}> Yes<br>
+                <input type="checkbox" bind:group={selectedPadres} value={"False"}> No<br>
+            </label>
+            <br>
+            <button class="chooser" on:click={() => {
+                selectedPadres = []
+            }}>Clear</button>
+
+            <button class="chooser" on:click={() => {
+                selectedPadres = ["True", "False"];
+            }}>Select All</button>
+        </div>
     </div>
 
-    <div class="padres">
-        <h2>Padres play today?</h2>
-        <label>
-            <input type="checkbox" bind:group={selectedPadres} value={"True"}> Yes<br>
-            <input type="checkbox" bind:group={selectedPadres} value={"False"}> No<br>
-        </label>
-        <br>
-        <button class="chooser" on:click={() => {
-            selectedPadres = []
-        }}>Reset Padres</button>
-
-        <button class="chooser" on:click={() => {
-            selectedPadres = ["True", "False"];
-        }}>Select All Games</button>
-    </div>
-
+    <br>
     <button class="maker {!makeable ? 'disabled': ''}" on:click={makeRadial} disabled={!makeable}>Make Radial</button>
+    <button class="maker {radials.length <= 0 ? 'disabled': ''}" on:click={() => {
+        radials = [];
+    }} disabled={radials.length <= 0}>Erase All</button>
 
     {#each radials as radial (radial.key)}
         <div class="draggable" use:draggable aria-grabbed="true" style="border: 2px solid red">
@@ -125,32 +131,68 @@
 
 <style>
     #machine {
-        padding: 20px;
+        padding: 0px;
         font-family: Helvetica;
         font-size: 0.9em;
+        height: 640px
+    }
+
+    h2 {
+        line-height: 25%;
+    }
+
+    button:hover {
+        color: rgba(58, 58, 58, 0.5);
+    }
+    .select {
         display: flex;
         flex-wrap: wrap;
+        background-color: lightgray;
+        padding: 20px
     }
 
     .day_of_week, .area, .padres {
-        border: 2px solid black;
         width: 20%;
-        height: 290px;
+        height: 200px;
         overflow: wrap;
         margin-bottom: 20px;
     }
 
     .area {
-        width: 50%;
+        width: 60%;
     }
 
     .area-text {
-        column-count: 3;
+        column-count: 4;
     }
 
     .draggable {
         position: absolute;
         cursor: move;
         user-select: none;
+    }
+
+    .chooser {
+        font-size: 0.9em;
+        color: rgba(95, 95, 95, 1);
+        background-color: rgba(58, 58, 58, 0);
+        border: 2px solid rgba(51, 51, 51, 0);
+        border-radius: 5px;
+        text-decoration: underline dotted;
+        font-style: italic;
+        z-index: 3;
+    }
+
+    .maker {
+        font-size: 1.2em;
+        color: rgba(95, 95, 95, 1);
+        background-color: rgba(58, 58, 58, 0);
+        border: 2px solid rgba(51, 51, 51, 0.3);
+        border-radius: 5px;
+        text-decoration: underline dotted;
+        font-style: italic;
+        padding: 10px;
+        margin: 0px 10px;
+        z-index: 0;
     }
 </style>

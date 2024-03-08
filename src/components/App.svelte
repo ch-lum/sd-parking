@@ -34,7 +34,7 @@
 
   <div class="machine">
     <Machine />
-    <Radial />
+    <!-- <Radial /> -->
   </div>
 </main>
 
