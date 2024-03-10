@@ -10,6 +10,8 @@
     let selectedArea = ["East Village", "Hillcrest", "Marina", "Little Italy", "Bankers Hill", "Gaslamp", "Cortez Hill", "Core", "Columbia", "Five Points", "Mission Hills", "University Heights", "North Park", "Cortez", "Talmadge", "College", "Barrio Logan", "Golden Hill", "Point Loma", "Midtown"];
     let selectedPadres = ["True", "False"];
     let scale = "normal";
+    let radX = 0;
+    let radY = 0;
 
     // $: makeable = $selectedDay.length > 0 && $selectedArea.length > 0 && $selectedPadres.length > 0;
     $: makeable = selectedDay.length > 0 && selectedArea.length > 0 && selectedPadres.length > 0;
@@ -54,7 +56,8 @@
 
         const innerRad = event.target.closest(".inner-rad");
         const rad_id = radials.find(r => r.key === parseInt(innerRad.id.split('-')[1]));
-        console.log(rad_id);
+        console.log("rad_id");
+        console.log(radials);
 
         const overSnapper = mouseLocation.x > snapperRect.width * 50/35 && mouseLocation.x < snapperRect.width * 50/35 + snapperRect.width + 10 && mouseLocation.y > snapperRect.top && mouseLocation.y < snapperRect.bottom;
 
@@ -62,10 +65,10 @@
         
         if (radial && overSnapper) {
             const radialRect = radial.getBoundingClientRect();
-            const x = snapperRect.width * 50/35 + snapperRect.width/2 - radialRect.width/2;
-            const y = -10;
+            radX = snapperRect.width * 50/35 + snapperRect.width/2 - radialRect.width/2;
+            radY = -10;
 
-            radial.style.transform = `translate(${x}px, ${y}px)`;
+            radial.style.transform = `translate(${radX}px, ${radY}px)`;
             innerRad.style.transform = `translate(${0}px, ${0}px)`;
         }
 
@@ -176,7 +179,7 @@
 
         <div class="charts-container">
             {#each radials as radial (radial.key)}
-                <div class="draggable radial" use:draggable aria-grabbed="true" on:mouseup={onMouseUp} role="presentation">
+                <div class="draggable radial" use:draggable={{ radX, radY }} aria-grabbed="true" on:mouseup={onMouseUp} role="presentation">
                     <Radial subset={radial.subset} params={radial.params} uniqueId={`radial-${radial.key}`}/>
                 </div>
             {/each}
