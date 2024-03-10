@@ -27,7 +27,17 @@
   </div>
 
   <div class="first_text">
-    <p>San diego is well known for being a car-centric city. Blah blah blah blah. Here will go some introduction and discussion about cars</p>
+    <p>San Diego County has a population of 3.2 Million people, and if you've ever tried to go anywhere in rush hour before, you know that quite a sizeable proprotion of 
+    those people drive Though bonus fact, not as bad as it could since San Diego County is the 5th most populated, but only 18th on Traffic Severity, so it's not as bad as
+    it could be. I'm not sure that'll make the wait on the commute any easier though.
+    
+     But once you finally get downtown after a few hours of traffic, you have to do the one thing everyone dreads: Finding Parking. Or more accurately, finding street Parking
+     instead of shelling out large amounts of money to private parking lots. 
+     </p>
+     <p>
+     We'll be covering some interesting tidbits and insights, but feel more than free to explore on your 
+     own as well!
+    </p>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     <Timeline />
   </div>
