@@ -167,7 +167,7 @@
             <select class="maker" bind:value={scale}>
                 <option value="normal">Normalized</option>
                 <option value="linear_avg">Linear (avg)</option>
-                <option value="linear_sum">Linear (sum)</option>
+                <!-- <option value="linear_sum">Linear (sum)</option> -->
                 <!-- <option value="log">Log</option> -->
             </select>
 
