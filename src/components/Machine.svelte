@@ -1,8 +1,9 @@
 <script>
     import { onMount } from "svelte";
-    import Radial from "./Radial.svelte";
-    import * as d3 from "d3";
+    import { Radial } from "./Radial.svelte";
+    import { motion, transform } from "svelte-motion";
     import { draggable } from '@neodrag/svelte';
+    import * as d3 from "d3";
     // export const selectedDay = writable([]);
     // export const selectedPadres = writable([]);
     // export const selectedArea = writable([]);
@@ -43,7 +44,28 @@
         // console.log(radials);
     }
 
-    
+    function onMouseUp(event) {
+        console.log('UP')
+        const radial = event.target.closest(".radial");
+        const snapper = document.querySelector(".snapper");
+        const mouseLocation = { x: event.clientX, y: event.clientY };
+        const snapperRect = snapper.getBoundingClientRect();
+        const overSnapper = mouseLocation.x > snapperRect.width * 50/35 && mouseLocation.x < snapperRect.width * 50/35 + snapperRect.width + 10  && mouseLocation.y > snapperRect.top && mouseLocation.y < snapperRect.bottom;
+        
+        if (radial && overSnapper) {
+            const radialRect = radial.getBoundingClientRect();
+            const x = snapperRect.width * 50/35 + snapperRect.width/2 - radialRect.width/2;
+            const y = -10;
+
+            // radial.style.transform = `translate(${x}px, ${y}px)`;
+            transform.selectedArea(`translate(${x}px, ${y}px)`);
+        }
+
+        const rad_id = radials.find(r => r.key === parseInt(radial.id.split('-')[1]));
+        // console.log(event)
+        // const index = radials.indexOf(radial);
+        // radials = [...radials.slice(0, index), ...radials.slice(index + 1)];
+    }
 </script>
 
 <div id="machine">
@@ -123,24 +145,35 @@
         </div>
     </div>
 
-    <br>
-    <select class="maker" bind:value={scale}>
-        <option value="normal">Normalized</option>
-        <option value="linear_avg">Linear (avg)</option>
-        <option value="linear_sum">Linear (sum)</option>
-        <option value="log">Log</option>
-    </select>
+    <div class="interact">
+        <div class="makers">
+            <select class="maker" bind:value={scale}>
+                <option value="normal">Normalized</option>
+                <option value="linear_avg">Linear (avg)</option>
+                <option value="linear_sum">Linear (sum)</option>
+                <!-- <option value="log">Log</option> -->
+            </select>
 
-    <button class="maker {!makeable ? 'disabled': ''} green" on:click={makeRadial} disabled={!makeable}>Make Chart</button>
-    <button class="maker {radials.length <= 0 ? 'disabled': ''} red" on:click={() => {
-        radials = [];
-    }} disabled={radials.length <= 0}>Erase All</button>
-
-    {#each radials as radial (radial.key)}
-        <div class="draggable" use:draggable aria-grabbed="true" style="border: 2px solid red">
-            <Radial subset={radial.subset} params={radial.params}/>
+            <button class="maker {!makeable ? 'disabled': ''} green" on:click={makeRadial} disabled={!makeable}>Make Chart</button>
+            <button class="maker {radials.length <= 0 ? 'disabled': ''} red" on:click={() => {
+                radials = [];
+            }} disabled={radials.length <= 0}>Erase All</button>
         </div>
-    {/each}
+
+        <div class="charts-container">
+            {#each radials as radial (radial.key)}
+                <div class="draggable radial" use:draggable use:motion={{ transform: transform }} aria-grabbed="true" on:mouseup={onMouseUp} role="presentation">
+                    <Radial subset={radial.subset} params={radial.params} uniqueId={`radial-${radial.key}`}/>
+                </div>
+            {/each}
+        </div>
+        <div class="snapper">
+            <h2>Bring disks here</h2>
+        </div>
+        <div class="trash">
+            <h2>Trash</h2>
+        </div>
+    </div>
 </div>
 
 <style>
@@ -148,7 +181,8 @@
         padding: 0px;
         font-family: Helvetica;
         font-size: 0.9em;
-        height: 940px
+        height: 940px;
+        width: 100%;
     }
 
     h2 {
@@ -184,6 +218,7 @@
         position: absolute;
         cursor: move;
         user-select: none;
+        margin: 5px;
     }
 
     .chooser {
@@ -216,5 +251,52 @@
 
     .red {
         background-color: lightcoral;
+    }
+
+    .charts-container {
+        /* display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: top; */
+        height: 360px;
+        width: 50%;
+    }
+
+    .radial {
+        border-radius: 50%;
+        border: 2px solid red;
+        top: 340px;
+        z-index: 2;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .snapper {
+        width: 35%;
+        border: 1px solid darkslategray;
+        background-color: #F7F0F5;
+        text-align: center;
+        padding: 0px;
+    }
+    
+    .trash {
+        width: 10%;
+        border: 1px solid darkslategray;
+        background-color: lightcoral;
+        text-align: center;
+        margin-left: 40px;
+    }
+
+    .interact {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: left;
+        justify-content: top;
+        padding: 20px;
+    }
+    
+    .makers {
+        position: absolute;
     }
 </style>
