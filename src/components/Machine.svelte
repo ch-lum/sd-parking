@@ -1,7 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import { Radial } from "./Radial.svelte";
-    import { motion, transform } from "svelte-motion";
+    import Radial from "./Radial.svelte";
     import { draggable } from '@neodrag/svelte';
     import * as d3 from "d3";
     // export const selectedDay = writable([]);
@@ -52,16 +51,20 @@
         const snapperRect = snapper.getBoundingClientRect();
         const overSnapper = mouseLocation.x > snapperRect.width * 50/35 && mouseLocation.x < snapperRect.width * 50/35 + snapperRect.width + 10  && mouseLocation.y > snapperRect.top && mouseLocation.y < snapperRect.bottom;
         
+        const innerRad = event.target.closest(".inner-rad");
+        const rad_id = radials.find(r => r.key === parseInt(innerRad.id.split('-')[1]));
+        console.log(rad_id);
+        
         if (radial && overSnapper) {
             const radialRect = radial.getBoundingClientRect();
             const x = snapperRect.width * 50/35 + snapperRect.width/2 - radialRect.width/2;
             const y = -10;
 
-            // radial.style.transform = `translate(${x}px, ${y}px)`;
-            transform.selectedArea(`translate(${x}px, ${y}px)`);
+            radial.style.transform = `translate(${x}px, ${y}px)`;
+            innerRad.style.transform = `translate(${0}px, ${0}px)`;
         }
 
-        const rad_id = radials.find(r => r.key === parseInt(radial.id.split('-')[1]));
+        
         // console.log(event)
         // const index = radials.indexOf(radial);
         // radials = [...radials.slice(0, index), ...radials.slice(index + 1)];
@@ -162,7 +165,7 @@
 
         <div class="charts-container">
             {#each radials as radial (radial.key)}
-                <div class="draggable radial" use:draggable use:motion={{ transform: transform }} aria-grabbed="true" on:mouseup={onMouseUp} role="presentation">
+                <div class="draggable radial" use:draggable aria-grabbed="true" on:mouseup={onMouseUp} role="presentation">
                     <Radial subset={radial.subset} params={radial.params} uniqueId={`radial-${radial.key}`}/>
                 </div>
             {/each}
