@@ -47,13 +47,18 @@
         console.log('UP')
         const radial = event.target.closest(".radial");
         const snapper = document.querySelector(".snapper");
+        const trash = document.querySelector(".trash");
         const mouseLocation = { x: event.clientX, y: event.clientY };
         const snapperRect = snapper.getBoundingClientRect();
-        const overSnapper = mouseLocation.x > snapperRect.width * 50/35 && mouseLocation.x < snapperRect.width * 50/35 + snapperRect.width + 10  && mouseLocation.y > snapperRect.top && mouseLocation.y < snapperRect.bottom;
-        
+        const trashRect = trash.getBoundingClientRect();
+
         const innerRad = event.target.closest(".inner-rad");
         const rad_id = radials.find(r => r.key === parseInt(innerRad.id.split('-')[1]));
         console.log(rad_id);
+
+        const overSnapper = mouseLocation.x > snapperRect.width * 50/35 && mouseLocation.x < snapperRect.width * 50/35 + snapperRect.width + 10 && mouseLocation.y > snapperRect.top && mouseLocation.y < snapperRect.bottom;
+
+        const overTrash = mouseLocation.x > snapperRect.width * 50/35 + snapperRect.width + 50 && mouseLocation.x < snapperRect.width * 50/35 + snapperRect.width + trashRect.width + 60 && mouseLocation.y > trashRect.top && mouseLocation.y < trashRect.bottom;      
         
         if (radial && overSnapper) {
             const radialRect = radial.getBoundingClientRect();
@@ -62,6 +67,12 @@
 
             radial.style.transform = `translate(${x}px, ${y}px)`;
             innerRad.style.transform = `translate(${0}px, ${0}px)`;
+        }
+
+        if (radial && overTrash) {
+            console.log("TRASH");
+            const index = radials.indexOf(rad_id);
+            radials = [...radials.slice(0, index), ...radials.slice(index + 1)];
         }
 
         
