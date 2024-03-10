@@ -6,6 +6,7 @@
     let minutes = [];
     let maxAreaByCategory;
     let tooltipText = "";
+    let selectedPath = null;
 
     onMount(async () => {
         const height = 3000;
@@ -108,9 +109,32 @@
                 .attr("d", line)
                 .attr("fill", colorScale(key))
                 .attr("fill-opacity", 0.6)
+                .on('mouseover', function(d, i) {
+                    let hoverIndex = i;
+                    svg.selectAll("path")
+                    .style("opacity", function(d, i) {
+                        if (d===hoverIndex) {
+                            return 0.9
+                        }
+                        else {
+                            return 0.2
+                        }
+                    }
+                    )
+                    .style("stroke-width", function(d, i) {
+                        if (d===hoverIndex) {
+                            return 2
+                        }
+                    }
+                    )
+                })
+                .on('mouseout', function(d, i) {
+                    svg.selectAll("path")
+                    .style("opacity", 0.6)
+                    .style("stroke-width", 1)
+                    })
+                })
         });
-
-    });
 </script>
 
 <div id="timeline"></div>
