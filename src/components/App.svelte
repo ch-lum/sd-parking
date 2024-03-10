@@ -106,6 +106,8 @@
   }
 
   .machine {
+    display: flex;
+    flex-wrap: wrap;
     position: absolute;
     top: 100%;
     transform: translateY(3400px);
