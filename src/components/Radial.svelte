@@ -8,6 +8,7 @@
 
     export let subset = [];
     export let params = {};
+    export let uniqueId;
     // Divide by padres and day of week for average
     
     let svg;
@@ -19,6 +20,9 @@
     const outerRadius = width/2 - margin;
     const maxAvg = 1600;
     const maxSum = 5000;
+    const jitter = 50
+    let dx = Math.random() * jitter - jitter / 2;
+    let dy = Math.random() * jitter - jitter / 2;
 
     onMount(() => {
         const sumByTime = rollup(subset, v => d3.sum(v, leaf => leaf.counts), d => d.time);
@@ -82,7 +86,7 @@
         
         // IF I CAN EVER GET THEM SEPARATED, CHANGE HEIGHT
         
-        const svg = d3.select("#radial")
+        const svg = d3.select(`#${uniqueId}`)
             .append("svg")
             .attr("width", width)
             .attr("height", height)
@@ -177,10 +181,8 @@
     });
 </script>
 
-<div id="radial"></div>
+<div class="inner-rad" id={uniqueId} style="transform: translate({dx}px, {dy}px);"></div>
 
 <style>
-    #radial {
-        /* position: absolute; */
-    }
+    
 </style>
