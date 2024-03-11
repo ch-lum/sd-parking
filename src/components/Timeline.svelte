@@ -120,6 +120,10 @@
             .attr('stroke-width', 1)
             .style('display', 'none');
 
+        const xScaleTime = d3.scaleTime()
+            .domain(timeRange)
+            .range([0 + margin, height - margin]);
+
         areas.forEach((area, key) => {
             svg.append("path")
                 .datum(area)
@@ -156,11 +160,31 @@
                     horizontalLine.style('display', 'none');
                     })
                 .on('mousemove', function(event, d, i) {
-                    console.log(d)
                     const mouseX = d3.pointer(event)[0];
                     const mouseY = d3.pointer(event)[1];
-                    const bisect = d3.bisector(d => d['']).left;
-                    const index = bisect(d, xScaleLinear.invert(mouseX));
+
+                    const timeValue = xScaleTime.invert(mouseY);
+
+
+                    let low = 0;
+                    let high = d.length - 1;
+                    let index = -1;
+
+                    while (low <= high) {
+                    const mid = Math.floor((low + high) / 2);
+                    const midTime = d3.timeParse("%Y-%m-%d %H:%M:%S")(d[mid].time);
+                    if (midTime.getTime() === timeValue.getTime()) {
+                        index = mid;
+                        break;
+                      } else if (midTime.getTime() < timeValue.getTime()) {
+                        low = mid + 1;
+                      } else {
+                        high = mid - 1;
+                      }
+                    }
+                    if (index===-1) {
+                        index = high
+                    }
                     const nearestData = d[index]
                     tooltipRectangle
                         .attr("transform", `translate(${mouseX + 10}, ${mouseY - 25})`)
