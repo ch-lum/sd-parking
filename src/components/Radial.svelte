@@ -123,11 +123,12 @@
         
         // IF I CAN EVER GET THEM SEPARATED, CHANGE HEIGHT
         
+        const viewScale = params.size === "normal" ? 1.1 : 1.8;
         const svg = d3.select(`#${uniqueId}`)
             .append("svg")
             .attr("width", width)
             .attr("height", height)
-            .attr("viewBox", [-width / 2, -height / 2, width, height])
+            .attr("viewBox", [-width * viewScale / 2, -height * viewScale/ 2, width * viewScale, height * viewScale])
             .attr("style", `width: {width}; height: auto; font: 10px sans-serif;`)
             .attr("stroke-linejoin", "round")
             .attr("stroke-linecap", "round")
