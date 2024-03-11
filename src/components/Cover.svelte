@@ -14,7 +14,7 @@
         bottom: 0;
         width: 100%;
         height: 100%;
-        border: 2px solid red;
+        /* border: 2px solid red; */
         z-index: 2;
         font-family: Georgia;
         text-align: center;

@@ -128,7 +128,7 @@
     position: absolute;
     top: 100%;
     width: 100%;
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     text-align: left;
     /* padding-left: 200px;
     padding-right: 200px; */
@@ -141,7 +141,7 @@
     top: 100%;
     transform: translateY(3450px);
     width: 100%;
-    border: 2px solid red;
+    /* border: 2px solid red; */
     text-align: left;
     /* padding-left: 200px;
     padding-right: 200px; */
@@ -154,6 +154,6 @@
     width: 100%;
     background-color: rgba(255, 255, 255, 0);
     z-index: 2;
-    border: 2px dashed green;
+    /* border: 2px dashed green; */
   }
 </style>

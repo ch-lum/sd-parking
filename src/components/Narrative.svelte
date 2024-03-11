@@ -197,6 +197,6 @@
     }
 
     .rad-wrapper {
-        border: 2px solid blue;
+        /* border: 2px solid blue; */
     }
 </style>
