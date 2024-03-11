@@ -99,6 +99,26 @@
             .curve(d3.curveStepAfter);
 
         const areas = d3.group(minutes, d => d.area);
+        const tooltipRectangle = svg.append("g")
+                                .attr("class", "tooltip")
+                                .style("display", "none");
+        tooltipRectangle.append("rect")
+            .attr("width", 150)
+            .attr("height", 100)
+            .attr("fill", "white")
+            .attr("stroke", "black")
+            .attr("stroke-width", 3);
+
+        const tooltipText = tooltipRectangle.append('text')
+            .attr('x', 5)
+            .attr('y', 20)
+            .style('font-size', '16px')
+            .style('fill', 'black');
+
+        const horizontalLine = svg.append('line')
+            .attr('stroke', 'black')
+            .attr('stroke-width', 1)
+            .style('display', 'none');
 
         areas.forEach((area, key) => {
             svg.append("path")
@@ -109,8 +129,8 @@
                 .attr("d", line)
                 .attr("fill", colorScale(key))
                 .attr("fill-opacity", 0.6)
-                .on('mouseover', function(d, i) {
-                    let hoverIndex = i;
+                .on('mouseover', function(event ,d, i) {
+                    let hoverIndex = d;
                     svg.selectAll("path")
                     .style("opacity", function(d, i) {
                         if (d===hoverIndex) {
@@ -129,11 +149,44 @@
                     )
                 })
                 .on('mouseout', function(d, i) {
+                    tooltipRectangle.style("display", "none");
                     svg.selectAll("path")
                     .style("opacity", 0.6)
-                    .style("stroke-width", 1)
+                    .style("stroke-width", 1);
+                    horizontalLine.style('display', 'none');
                     })
+                .on('mousemove', function(event, d, i) {
+                    console.log(d)
+                    const mouseX = d3.pointer(event)[0];
+                    const mouseY = d3.pointer(event)[1];
+                    const bisect = d3.bisector(d => d['']).left;
+                    const index = bisect(d, xScaleLinear.invert(mouseX));
+                    const nearestData = d[index]
+                    tooltipRectangle
+                        .attr("transform", `translate(${mouseX + 10}, ${mouseY - 25})`)
+                        .style("display", "block")
+
+                    tooltipText.text("");
+
+                    tooltipText.text(`AREA: ${nearestData.area}`);
+                    tooltipText.append('tspan')
+                        .attr('x', 5)
+                        .attr('dy', '1.2em')
+                        .text(`TIME: ${nearestData.time.slice(10, 16)}`);
+
+                    tooltipText.append('tspan')
+                        .attr('x', 5)
+                        .attr('dy', '1.2em')
+                        .text(`COUNT: ${nearestData.count}`);
+                    
+                horizontalLine
+                    .attr('x1', 0) 
+                    .attr('y1', mouseY)
+                    .attr('x2', width)  
+                    .attr('y2', mouseY)
+                    .style('display', 'block');
                 })
+            })
         });
 </script>
 
@@ -150,4 +203,6 @@
         z-index: 1;
         border: 2px solid green;
     }
+
+    #tooltip
 </style>
