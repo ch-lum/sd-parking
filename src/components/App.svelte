@@ -38,7 +38,7 @@
      We'll be covering some interesting tidbits and insights, but feel more than free to explore on your 
      own as well!
     </p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>To understand when and where street parking gets used, we took a typical day in 2023, Thursday, March 16, and plotted the number of active parking meters over the course of the day.</p>
     <Timeline />
   </div>
 
