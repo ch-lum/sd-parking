@@ -1,19 +1,28 @@
 <script>
   console.log('reset')
+  import { onMount } from 'svelte';
   import Map from './Map.svelte';
   import Cover from './Cover.svelte';
   import Timeline from './Timeline.svelte';
   import Machine from './Machine.svelte';
   import Narrative from './Narrative.svelte';
+  import * as d3 from 'd3';
 
   let page = 0;
   let lastPage = 6;
+  let data = [];
 
   let showCover = true;
 
   function toggleCover() {
     showCover = !showCover;
   }
+
+  onMount(async () => {
+    const res = await fetch('rad_by_min.csv');
+    const csv = await res.text();
+    data = d3.csvParse(csv, d3.autoType);
+  });
 </script>
 
 <main class="container">
@@ -52,7 +61,7 @@
   {/if}
 
   <div class="machine">
-    <Machine />
+    <Machine bind:data />
     <!-- <Radial /> -->
   </div>
 
