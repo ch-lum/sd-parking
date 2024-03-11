@@ -52,35 +52,51 @@
         
         {#if page===0}
             <div in:fade={{ delay:fadeDuration, duration: fadeDuration }} out:fade={{ duration: fadeDuration }}>
-                <p>Start with overall radial. Explain what you're looking at--explain normalized (not linear yet)</p>
+                <p>Here is a basic radial covering [DAY AND LOCATION]. The text in the center explains what day, and the outer radial shows the time
+                It's important to know that the parking volume here is based off the percentage of the highest parking volume recorded on that day of the week, 
+                rather than being based off of the raw volume. 
+                </p>
             </div>
         {:else if page === 1}
             <div in:fade={{ delay:fadeDuration, duration: fadeDuration }} out:fade={{ duration: fadeDuration }}>
-                <p>Different locations get different colors. How they're different from each other. How this is a different version of the prior graph, but normalized. [EXPLAIN THIS]</p>
+                <p>Different locations get different colors, comparing [LOCATION 1 AND LOCATION 2] ON [DAY]. Here, you can see the comparison between the usage volume
+                between these two locations with different numbers of parking meters. 
+                
+                </p>
             </div>
         {:else if page === 2}
             <div in:fade={{ delay:fadeDuration, duration: fadeDuration }} out:fade={{ duration: fadeDuration }}>
-                <p>We can also un-normalize. This is a monday for each of the locations.</p>
+                <p>We can also un-normalize, and see the data as an average count for the day rather than looking at a percentage. This is a Monday for each of the locations
+                , and you can now see, the heights have changed as the raw number of parking meters matters. 
+                </p>
             </div>
         {:else if page === 3}
             <div in:fade={{ delay:fadeDuration, duration: fadeDuration }} out:fade={{ duration: fadeDuration }}>
-                <p>Let's take a look at the East Village. [DESCRIBE EAST VILLAGE]. Petco park is here, home of the Padres. We can further look day-by-day at the totals. Here's the average weekday in the East Village and the average weekend. Weekends appear to have fewer people parking on average</p>
+                <p>Let's take a look at the East Village. Petco park is Here, home of the Padres. It was actually the construction of the park that revitalized 
+                what once was a warehouse district into a vibrant neighborhood full of hotels, events, good food, and of course, amazing views.  But if you want to visit
+                here's the average weekday in the East Village and the average weekend. Contrary to what you might expect, the Weekend has fewer people parking</p>
             </div>
         {:else if page === 4}
             <div in:fade={{ delay:fadeDuration, duration: fadeDuration }} out:fade={{ duration: fadeDuration }}>
-                <p>If we split by day of week, we'll see that we weren't looking close enough. [EACH DAY OF THE WEEK FOR EAST VILLAGE]. Sundays just don't get any parking. If you have ever tried street parking yourself, you might know why (Hint: parking is free on Sundays).</p>
+                <p>So let's break down our data a little further, and compare every single day. Some things we'd expect, like Fridays being busier than the weekdays that come
+                before it. But why doesn't Sundays just don't get any parking?
+                 If you've ever been to a parking meter, the sign at the payment station might clue you in. (Parking is free on Sundays!!).</p>
             </div>
         {:else if page === 5}
             <div in:fade={{ delay:fadeDuration, duration: fadeDuration }} out:fade={{ duration: fadeDuration }}>
-                <p>In fact, here's all the locations and their average sunday. Unsurprisingly, there's nothing really there</p>
+                <p>In fact, here's all the locations and their average Sunday, so you can see the Free Parking extends beyond just East Village. </p>
             </div>
         {:else if page === 6}
             <div in:fade={{ delay:fadeDuration, duration: fadeDuration }} out:fade={{ duration: fadeDuration }}>
-                <p>Just for fun, here's the normalized versions of each.</p>
+                <p>Just for fun, here's the normalized versions of each, so you can see the breakdown as a percentage rather than the raw volume. </p>
             </div>
         {:else if page === 7}
             <div in:fade={{ delay:fadeDuration, duration: fadeDuration }} out:fade={{ duration: fadeDuration }}>
-                <p>Last observation, the Padres playing a home game does not really affect the number of people parking in San Diego. Here's the overall and the East Village, with the overlayed-versions in the center,.</p>
+                <p>But despite Petco Park's vital role in revitalizing East Village, the Padres don't actually influence the avaliability 
+                of Street Parking. Choosing a day without a Padres game may seem like a good plan, but the data doesn't support the information. 
+                Here's the overall and the East Village, on days where the Padres do and don't play, with the overlayed-versions for comparison.
+                It seems like East Village has managed to outgrow its roots, people are interested in everything it has to offer rather than just Baseball. 
+                </p>
             </div>
         {:else if page === 8}
             <div in:fade={{ delay:fadeDuration, duration: fadeDuration }} out:fade={{ duration: fadeDuration }}>
