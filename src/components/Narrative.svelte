@@ -119,12 +119,12 @@
         {/if}
     </div>
     <div class="radial-box">
-        {#if page === 0 && isMounted}
+        <!-- {#if page === 0 && isMounted}
             <div class="rad-wrapper">
                 <h2>All Locations</h2>
                 <Radial subset={makeSubset(params[0])} params={params[0]}, uniqueId={"a"}/>
             </div>
-        {/if}
+        {/if} -->
     </div>
 </div>
 
