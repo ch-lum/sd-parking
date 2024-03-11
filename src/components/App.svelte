@@ -56,7 +56,7 @@
 
   {#if page !== lastPage}
     <div class= "narrative">
-      <Narrative bind:page bind:lastPage />
+      <Narrative bind:page bind:lastPage bind:data />
     </div>
   {/if}
 

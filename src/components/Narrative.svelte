@@ -1,12 +1,18 @@
 <script>
     import { fade } from "svelte-transitions";
     import Radial from "./Radial.svelte";
+    import { onMount } from "svelte";
 
     export let page = 0;
     export const lastPage = 9;
-    export let data;
+    export let data = [];
     
     const fadeDuration = 500;
+    let isMounted = false;
+
+    onMount(() => {
+        isMounted = true;
+    });
 
     function nextPage() {
         page += 1;
@@ -21,9 +27,16 @@
         page = lastPage;
     }
 
+    function makeSubset(param) {
+        console.log('subset')
+        console.log(param)
+        let subset = data.filter(d => param.selectedDay.includes(d.day_of_week) && param.selectedArea.includes(d.area) && param.selectedPadres.includes(d.padres_today));
+        console.log(data)
+        return subset;
+    }
 
-    function makeRadial(days, areas, padres, scale, size) {
-        let subset = data.filter(d => days.includes(d.day_of_week) && areas.includes(d.area) && padres.includes(d.padres_today));
+    function makeRadial(param) {
+        let subset = data.filter(d => param.selectedDay.includes(d.day_of_week) && param.selectedArea.includes(d.area) && param.selectedPadres.includes(d.padres_today));
 
         const newRadial = {
             subset: subset,
@@ -40,6 +53,23 @@
         // radials = [...radials, newRadial];
         rad_key++;
         // console.log(radials);
+    }
+
+    let params = [];
+
+    $: {
+        if (page === 0) {
+            params = [];
+            params = [
+                {
+                    selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                    selectedArea: ["Bankers Hill", "Barrio Logan", "College", "Columbia", "Core", "Cortez", "Cortez Hill", "East Village", "Fize Points", "Gaslamp", "Golden Hill", "Hillcrest", "Little Italy", "Marina", "Midtown", "Mission Hills", "North Park", "Point Loma", "Talmadge", "University Heights"],
+                    selectedPadres: [0, 1],
+                    scale: "normal",
+                    size: "normal"
+                }
+            ]
+        }
     }
 </script>
 
@@ -89,8 +119,11 @@
         {/if}
     </div>
     <div class="radial-box">
-        {#if page === 0}
-            <Radial {subset} {params} {uniqueId} />
+        {#if page === 0 && isMounted}
+            <div class="rad-wrapper">
+                <h2>All Locations</h2>
+                <Radial subset={makeSubset(params[0])} params={params[0]}, uniqueId={"a"}/>
+            </div>
         {/if}
     </div>
 </div>
@@ -161,5 +194,9 @@
         font-size: 1.2em;
         font-weight: bold;
         color: rgba(95, 95, 95, 1);
+    }
+
+    .rad-wrapper {
+        border: 2px solid blue;
     }
 </style>
