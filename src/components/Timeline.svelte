@@ -203,6 +203,4 @@
         z-index: 1;
         border: 2px solid green;
     }
-
-    #tooltip
 </style>
