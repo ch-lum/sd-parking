@@ -104,7 +104,7 @@
                                 .style("display", "none");
         tooltipRectangle.append("rect")
             .attr("width", 150)
-            .attr("height", 100)
+            .attr("height", 75)
             .attr("fill", "white")
             .attr("stroke", "black")
             .attr("stroke-width", 3);
