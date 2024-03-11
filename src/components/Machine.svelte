@@ -35,7 +35,8 @@
                 selectedDay: selectedDay,
                 selectedArea: selectedArea,
                 selectedPadres: selectedPadres,
-                scale: scale
+                scale: scale,
+                size: normal,
             },
             key: rad_key
         }

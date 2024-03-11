@@ -4,7 +4,10 @@
   import Cover from './Cover.svelte';
   import Timeline from './Timeline.svelte';
   import Machine from './Machine.svelte';
-  import Radial from './Radial.svelte';
+  import Narrative from './Narrative.svelte';
+
+  let page = 0;
+  let lastPage = 6;
 
   let showCover = true;
 
@@ -42,10 +45,17 @@
     <Timeline />
   </div>
 
+  {#if page !== lastPage}
+    <div class= "narrative">
+      <Narrative bind:page bind:lastPage />
+    </div>
+  {/if}
+
   <div class="machine">
     <Machine />
     <!-- <Radial /> -->
   </div>
+
 </main>
 
 
@@ -126,5 +136,15 @@
     text-align: left;
     /* padding-left: 200px;
     padding-right: 200px; */
+  }
+
+  .narrative {
+    position: absolute;
+    top: 100%;
+    transform: translateY(3450px);
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    z-index: 2;
+    border: 2px dashed green;
   }
 </style>
