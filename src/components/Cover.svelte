@@ -10,7 +10,6 @@
 <style>
     div {
         position: absolute;
-        background-color: rgba(255,255,255, 0.5);
         top: 0;
         bottom: 0;
         width: 100%;
