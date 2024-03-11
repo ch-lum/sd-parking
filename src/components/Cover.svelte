@@ -4,6 +4,7 @@
 
 <div in:fade={{ duration: 500 }} out:fade={{ duration: 500 }}>
     <h1>When People Park:<br>San Diego</h1>
+    <p>Christopher Lum, Charles Wang, Gino Angelici</p>
     <slot></slot>
 </div>
 
@@ -24,5 +25,12 @@
     h1 {
         padding-top: 5%;
         font-size: 4em;
+    }
+
+    p {
+        position: absolute;
+        top: 0;
+        font-family: Helvetica;
+        font-size: 1.2em;
     }
 </style>
