@@ -17,14 +17,10 @@
     $: makeable = selectedDay.length > 0 && selectedArea.length > 0 && selectedPadres.length > 0;
     $: radials = [];
     let rad_key = 0;
-    let data = [];
+    export let data = [];
     $: console.log(radials)
 
-    onMount(async () => {
-        const res = await fetch('rad_by_min.csv');
-        const csv = await res.text();
-        data = d3.csvParse(csv, d3.autoType);
-    });
+    
 
     function makeRadial() {
         let subset = data.filter(d => selectedDay.includes(d.day_of_week) && selectedArea.includes(d.area) && selectedPadres.includes(d.padres_today));
@@ -36,7 +32,7 @@
                 selectedArea: selectedArea,
                 selectedPadres: selectedPadres,
                 scale: scale,
-                size: normal,
+                size: "normal",
             },
             key: rad_key
         }
@@ -282,7 +278,6 @@
 
     .radial {
         border-radius: 50%;
-        border: 2px solid red;
         top: 340px;
         z-index: 2;
         margin: 0px;
