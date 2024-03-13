@@ -95,11 +95,11 @@
         </p>
 
         <p class="annotation" style="top: 82%;">
-          Despite the lack of parking meters, people are still welcome to park on the street. The lack of parking meters from 8 PM to 6 AM indicates a lack of charging instead of a lack of parking. Maybe the best time to park is at night?
+          Despite the lack of parking meters, people are still welcome to park on the street. The lack of parking meters from 8 PM to 6 AM indicates a lack of paying instead of a lack of parking. Maybe the best time to park is at night?
         </p>
 
         <p class="annotation" style="top: 92%; left: -5%; width: 80%; font-size: 1em;">
-          [RECAP GAHHHHHH]
+          This chart ends at 5:00 AM on Friday, March 17th, 2023 and Friday will look like much of the same. 19,171 people used public parking on Thursday and was the seventh most parked-on day of the year. The most parked-on day will come three weeks later, on another Thursday, April 6th.
         </p>
       </div>
       <Timeline />
