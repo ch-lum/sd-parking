@@ -37,7 +37,7 @@
             .append("svg")
             .attr("width", width)
             .attr("height", height)
-            .style("background-color", "white");
+            .style("background-color", "rgba(255, 255, 255, 0)");
         
 
         const xScaleDiscrete = d3.scalePoint()
@@ -61,7 +61,7 @@
         const xAxisTop = d3.axisTop(xScaleDiscrete);
         const xAxisBottom = d3.axisBottom(xScaleDiscrete);
         const yAxis = d3.axisLeft(yScale)
-            .ticks(numHours, "%H:%M")
+            .ticks(numHours * 2, "%H:%M")
             .tickFormat(d3.timeFormat("%H:%M"));
 
         svg.append("g")
@@ -225,6 +225,7 @@
         width: 100%;
         height: 100%;
         z-index: 1;
+        background-color: rgba(255, 255, 255, 0);
         /* border: 2px solid green; */
     }
 </style>
