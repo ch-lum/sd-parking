@@ -98,7 +98,7 @@
           Despite the lack of parking meters, people are still welcome to park on the street. The lack of parking meters from 8 PM to 6 AM indicates a lack of charging instead of a lack of parking. Maybe the best time to park is at night?
         </p>
 
-        <p class="annotation" style="top: 92%; width: 80%; font-size: 1em;">
+        <p class="annotation" style="top: 92%; left: -5%; width: 80%; font-size: 1em;">
           [RECAP GAHHHHHH]
         </p>
       </div>
@@ -229,7 +229,6 @@
   }
 
   .timeline {
-    border: 2px solid blue;
     z-index: 1;
     background-color: rgba(255, 255, 255, 0);
   }
@@ -239,7 +238,6 @@
     left: 50%;
     width: 50%;
     height: 90%;
-    border: 2px solid green;
     text-align: left;
     z-index: 0;
     padding: 0px;
