@@ -1,7 +1,6 @@
 <script>
     import { onMount } from "svelte";
     import * as d3 from "d3";
-    import TLTooltip from "./TLTooltip.svelte";
 
     let minutes = [];
     let maxAreaByCategory;
@@ -215,7 +214,6 @@
 </script>
 
 <div id="timeline"></div>
-<TLTooltip {tooltipText} />
 
 <style>
     #timeline {
