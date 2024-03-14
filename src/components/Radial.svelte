@@ -9,7 +9,8 @@
     export let subset = [];
     export let params = {};
     export let uniqueId;
-    // Divide by padres and day of week for average
+
+    $: console.log(params)
     
     let svg;
     let data;
@@ -18,11 +19,11 @@
     const margin = 30;
     const innerRadius = width/8;
     const outerRadius = width/2 - margin;
-    const maxAvg = 1600;
+    const maxAvg = (params.type === "narrative" && params.scale === "linear_avg") ? 800: 1600;
     const maxSum = 5000;
     const jitter = 50
-    let dx = Math.random() * jitter - jitter / 2;
-    let dy = Math.random() * jitter - jitter / 2;
+    let dx = params.type === "machine" ? Math.random() * jitter - jitter / 2 : 0;
+    let dy = params.type === "machine" ? Math.random() * jitter - jitter / 2 : 0;
 
     const colors = ['#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#a9a9a9', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080']
     const colorMap = {
@@ -59,6 +60,9 @@
     }
 
     onMount(() => {
+        console.log("params");
+        console.log(params);
+
         const sumByTime = rollup(subset, v => d3.sum(v, leaf => leaf.counts), d => d.time);
         subset = Array.from(sumByTime, ([time, counts]) => ({time, counts}))
 
@@ -78,9 +82,6 @@
             .domain([new Date().setHours(0, 0, 0, 0), new Date().setHours(23, 59, 59, 999)])
             .range([-1 * Math.PI, Math.PI]);
         
-        console.log("debug")
-        console.log(xScale(new Date().setHours(24, 0, 0, 0)))
-
         const yScaleNormal = d3.scaleRadial()
             .domain([0, d3.max(subset, d => d.counts)])
             .range([innerRadius, outerRadius]);

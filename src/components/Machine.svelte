@@ -33,6 +33,7 @@
                 selectedPadres: selectedPadres,
                 scale: scale,
                 size: "normal",
+                type: "machine"
             },
             key: rad_key
         }
