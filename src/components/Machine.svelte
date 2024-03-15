@@ -62,6 +62,7 @@
 
         const innerRad = event.target.closest(".inner-rad");
         const rad_id = radials.find(r => r.key === parseInt(innerRad.id.split('-')[1]));
+        const index = radials.findIndex(r => r.key === rad_id.key);
         console.log("rad_id");
         console.log(rad_id.key);
 
@@ -74,10 +75,10 @@
             radX = snapperRect.width * 50/35 + snapperRect.width/2 - radialRect.width/2;
             radY = -10;
 
-            rad_id.position.x = radX;
-            rad_id.position.y = radY;
-            console.log(rad_id.position.x)
-            radial.style.transform = `translate(${radX}px, ${radY}px)`;
+            // rad_id.position = { x: radX, y: radY }
+            radials[index].position = { x: radX, y: radY };
+            // console.log(rad_id.position.x)
+            // radial.style.transform = `translate(${radX}px, ${radY}px)`;
             radial.style.zIndex = 0;
             innerRad.style.transform = `translate(${0}px, ${0}px)`;
         }
@@ -192,7 +193,6 @@
                 <div class="draggable radial" use:draggable={{ position: radial.position, onDrag: ({ offsetX, offsetY }) => radial.position = { x: offsetX, y: offsetY }, }} aria-grabbed="true" on:mouseup={onMouseUp} on:mousedown={onMouseDown} role="presentation">
                     <Radial subset={radial.subset} params={radial.params} uniqueId={`radial-${radial.key}`}/>
                 </div>
-                <p>{radial.key}</p>
             {/each}
         </div>
         <div class="snapper">
