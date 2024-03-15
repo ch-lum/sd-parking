@@ -713,6 +713,7 @@
 
 <div id="narrative" in:fade={{ duration: 500 }} out:fade={{ duration: 500, css: (t) => `opacity: ${t*0}` }}>
     <div class="text">
+        <h3 style="position: absolute; z-index: 3; top: -20px;">Meters around the clock</h3>
         <p class="page-num">{page} / {lastPage - 1}</p>
         <button class="previous {page === 0 ? 'disabled' : ''}" on:click={previousPage} disabled={page === 0}>Previous</button>
         <button class="next {page === lastPage ? 'disabled' : ''}" on:click={nextPage} disabled={page === lastPage}>Next</button>
