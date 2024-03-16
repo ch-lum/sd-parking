@@ -42,7 +42,7 @@
 
         radials = [...radials, newRadial];
         rad_key++
-        // console.log(radials);
+        console.log(radials);
     }
 
     function onMouseDown(event) {

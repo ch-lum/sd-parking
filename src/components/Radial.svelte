@@ -74,6 +74,10 @@
             d.time = today;
         });
 
+        const sortingArray = Object.keys(subset).map(key => ({ id: key, ...subset[key]})); //converted to a new Array since I wasn't sure how to access time in the old subset
+        sortingArray.sort((a, b) => a.time - b.time);
+        subset = sortingArray;
+
         if (params.scale === "linear_avg") {
             subset.forEach(d => d.counts = d.counts / (params.selectedDay.length * params.selectedPadres.length))
         }
@@ -123,7 +127,7 @@
             line.radius(d => logScale(d.counts));
         
         // IF I CAN EVER GET THEM SEPARATED, CHANGE HEIGHT
-        
+
         const viewScale = params.size === "normal" ? 1.1 : 1.8;
         const svg = d3.select(`#${uniqueId}`)
             .append("svg")
@@ -188,7 +192,7 @@
                 .text(hour + ":00")
                 .style("font-color", "lightgray");
         }
-
+        console.log(subset);
         svg.append("path")
             .datum(subset)
             .attr("stroke", "black")
