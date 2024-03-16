@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import Radial from "./Radial.svelte";
     import { draggable } from '@neodrag/svelte';
+    import { flip } from "svelte/animate";
     import * as d3 from "d3";
     // export const selectedDay = writable([]);
     // export const selectedPadres = writable([]);
@@ -190,7 +191,7 @@
 
         <div class="charts-container">
             {#each radials as radial (radial.key)}
-                <div class="draggable radial" use:draggable={{ position: radial.position, onDrag: ({ offsetX, offsetY }) => radial.position = { x: offsetX, y: offsetY }, }} aria-grabbed="true" on:mouseup={onMouseUp} on:mousedown={onMouseDown} role="presentation">
+                <div class="draggable radial" use:draggable={{ position: radial.position, onDrag: ({ offsetX, offsetY }) => radial.position = { x: offsetX, y: offsetY }, }} animate:flip={{ duration: 300 }} aria-grabbed="true" on:mouseup={onMouseUp} on:mousedown={onMouseDown} role="presentation">
                     <Radial subset={radial.subset} params={radial.params} uniqueId={`radial-${radial.key}`}/>
                 </div>
             {/each}
