@@ -10,7 +10,7 @@
     export let params = {};
     export let uniqueId;
 
-    $: console.log(params)
+    // $: console.log(params)
     
     let svg;
     let data;
