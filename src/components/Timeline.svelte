@@ -7,9 +7,33 @@
     let tooltipText = "";
     let selectedPath = null;
 
+    const colors = ['#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#a9a9a9', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080']
+    const colorScale = {
+        "Bankers Hill": colors[0],
+        "Barrio Logan": colors[1],
+        "College": colors[2],
+        "Columbia": colors[3],
+        "Core": colors[4],
+        "Cortez": colors[5],
+        "Cortez Hill": colors[6],
+        "East Village": colors[7],
+        "Fize Points": colors[8],
+        "Gaslamp": colors[9],
+        "Golden Hill": colors[10],
+        "Hillcrest": colors[11],
+        "Little Italy": colors[12],
+        "Marina": colors[13],
+        "Midtown": colors[14],
+        "Mission Hills": colors[15],
+        "North Park": colors[16],
+        "Point Loma": colors[17],
+        "Talmadge": colors[18],
+        "University Heights": colors[19]
+    }
+
     onMount(async () => {
         const height = 3000;
-        const width = 1000;
+        const width = 1200;
         const margin = 120;
 
         const res = await fetch('by_minute.csv'); 
@@ -41,18 +65,18 @@
 
         const xScaleDiscrete = d3.scalePoint()
             .domain(maxAreaByCategory.map(d => d.key))
-            .range([0 + margin, width * 0.45])
+            .range([0 + margin, width * 0.35])
             .padding(1);
 
         const xScaleLinear = d3.scaleLinear()
             .domain(d3.extent(minutes.map(d => d.count)))
-            .range([0 + margin, 0 + width * 0.75 - margin]);
+            .range([0 + margin, 0 + width * 0.65 - margin]);
 
         const yScale = d3.scaleTime()
             .domain(d3.extent(minutes.map(d => d3.timeParse("%Y-%m-%d %H:%M:%S")(d.time))))
             .range([0 + margin, height - margin]);
 
-        const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+        // const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
         
         const timeRange = d3.extent(minutes.map(d => d3.timeParse("%Y-%m-%d %H:%M:%S")(d.time)));
         const numHours = (timeRange[1] - timeRange[0]) / 1000 / 60 / 60;
@@ -71,7 +95,7 @@
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
             .attr("transform", "rotate(65)")
-            .style("fill", function(d) { return colorScale(d); })
+            .style("fill", function(d) { return colorScale[d]; })
             .style("font-weight", "bold")
             .style("text-transform", "uppercase");
 
@@ -83,7 +107,7 @@
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
             .attr("transform", "rotate(-65)")
-            .style("fill", function(d) { return colorScale(d); })
+            .style("fill", function(d) { return colorScale[d]; })
             .style("font-weight", "bold")
             .style("text-transform", "uppercase");
 
@@ -98,22 +122,7 @@
             .curve(d3.curveStepAfter);
 
         const areas = d3.group(minutes, d => d.area);
-        const tooltipRectangle = svg.append("g")
-                                .attr("class", "tooltip")
-                                .style("display", "none");
-        tooltipRectangle.append("rect")
-            .attr("width", 150)
-            .attr("height", 75)
-            .attr("fill", "white")
-            .attr("stroke", "black")
-            .attr("stroke-width", 3);
-
-        const tooltipText = tooltipRectangle.append('text')
-            .attr('x', 5)
-            .attr('y', 20)
-            .style('font-size', '16px')
-            .style('fill', 'black');
-
+        
         const horizontalLine = svg.append('line')
             .attr('stroke', 'black')
             .attr('stroke-width', 1)
@@ -130,14 +139,14 @@
                 .attr("stroke", "black")
                 .attr("stroke-width", 1)
                 .attr("d", line)
-                .attr("fill", colorScale(key))
+                .attr("fill", colorScale[key])
                 .attr("fill-opacity", 0.6)
                 .on('mouseover', function(event ,d, i) {
                     let hoverIndex = d;
                     svg.selectAll("path")
                     .style("opacity", function(d, i) {
                         if (d===hoverIndex) {
-                            return 0.9
+                            return 1
                         }
                         else {
                             return 0.2
@@ -186,7 +195,8 @@
                     }
                     const nearestData = d[index]
                     tooltipRectangle
-                        .attr("transform", `translate(${mouseX + 10}, ${mouseY - 25})`)
+                        // .attr("transform", `translate(${mouseX + 10}, ${mouseY - 25})`)
+                        .attr("transform", `translate(${xScaleDiscrete(nearestData.area) + xScaleLinear(nearestData.count) - margin}, ${mouseY})`)
                         .style("display", "block")
 
                     tooltipText.text("");
@@ -203,13 +213,31 @@
                         .text(`COUNT: ${nearestData.count}`);
                     
                 horizontalLine
-                    .attr('x1', 0) 
+                    .attr('x1', margin) 
                     .attr('y1', mouseY)
-                    .attr('x2', width)  
+                    .attr('x2', d => xScaleDiscrete(nearestData.area) + xScaleLinear(nearestData.count) - margin)  
                     .attr('y2', mouseY)
                     .style('display', 'block');
                 })
             })
+            const tooltipRectangle = svg.append("g")
+                                .attr("class", "tooltip")
+                                .style("display", "none");
+
+        tooltipRectangle.append("rect")
+            .attr("width", 150)
+            .attr("height", 75)
+            .attr("fill", "white")
+            .attr("stroke", "black")
+            .attr("stroke-width", 3)
+            .style("z-index", 3);
+
+        const tooltipText = tooltipRectangle.append('text')
+            .attr('x', 5)
+            .attr('y', 20)
+            .style('font-size', '16px')
+            .style('fill', 'black');
+
         });
 </script>
 
