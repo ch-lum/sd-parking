@@ -10,6 +10,7 @@
     const fadeDuration = 500;
     let isMounted = false;
     const neighborhoods = ["Bankers Hill", "Barrio Logan", "College", "Columbia", "Core", "Cortez", "Cortez Hill", "East Village", "Five Points", "Gaslamp", "Golden Hill", "Hillcrest", "Little Italy", "Marina", "Midtown", "Mission Hills", "North Park", "Point Loma", "Talmadge", "University Heights"];
+    let rand_array;
 
     onMount(() => {
         isMounted = true;
@@ -43,6 +44,13 @@
     }
 
     let params = [];
+
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+
+    const arrayLength = 3; // Change this to the desired array length
+    
 
     $: {
         switch (page) {
@@ -707,6 +715,174 @@
                 break;
             
             }
+
+            case 7: {
+                rand_array = Array.from({ length: arrayLength }, () => getRandomInt(20));
+
+                params = [];
+                params = [
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Bankers Hill"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Barrio Logan"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["College"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Columbia"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Core"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Cortez"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Cortez Hill"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["East Village"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Five Points"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Gaslamp"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Golden Hill"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Hillcrest"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Little Italy"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Marina"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Midtown"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Mission Hills"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["North Park"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Point Loma"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["Talmadge"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                    {
+                        selectedDay: [0, 1, 2, 3, 4, 5, 6],
+                        selectedArea: ["University Heights"],
+                        selectedPadres: ["True", "False"],
+                        scale: "normal",
+                        size: "normal",
+                        type: "narrative"
+                    },
+                ]
+            }
         }
     }
 </script>
@@ -1020,6 +1196,13 @@
                 <h3> </h3>
                 <Radial subset={makeSubset(params[3])} params={params[3]} uniqueId={"radial-G3"}/>
             </div>
+        {:else if page === 7 && data.length > 0}
+            {#each rand_array as num, i}
+                <div class="rad-wrapper" style="width: 33%; left: {33 * (i % 3)}%;"in:fade={{ delay: fadeDuration, duration: fadeDuration }} out:fade={{ duration: fadeDuration }}>
+                    <h2>{neighborhoods[num]}</h2>
+                    <Radial subset={makeSubset(params[num])} params={params[num]} uniqueId={`radial-H${i}`}/>
+                </div>
+            {/each}
         {/if}
     </div>
 </div>
