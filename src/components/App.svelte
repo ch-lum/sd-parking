@@ -117,12 +117,12 @@
     <!-- <Radial /> -->
   </div>
 
-  <div class="bibliography">
+  <!-- <div class="bibliography">
     <h3>References</h3>
     <p>
       <a href="https://opendata.sandag.org/">SANDAG Open Data Portal</a>
       <a href="https://docs.sandiego.gov/municode/MuniCodeChapter08/Ch08Art06Division01.pdf">San Diego Municipal Code</a>
-    </p>
+    </p> -->
 
 </main>
 
