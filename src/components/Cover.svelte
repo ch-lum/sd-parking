@@ -4,7 +4,7 @@
 
 <div in:fade={{ duration: 500 }} out:fade={{ duration: 500 }}>
     <h1>When People Park:<br>San Diego</h1>
-    <p>Christopher Lum, Charles Wang, Gino Angelici</p>
+    <p>Christopher Lum, Charles Wang, Gino Angelici, <a href="https://youtu.be/sWwzyjwcm3I">video</a></p>
     <slot></slot>
 </div>
 
